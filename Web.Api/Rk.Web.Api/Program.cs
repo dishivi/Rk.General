@@ -16,7 +16,7 @@ builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(FailFastRequestB
 
 builder.Services.RegisterAuthServices(builder.Configuration);
 
-builder.Services.AddSingleton<IAuthenticationWith>(new AuthenticationWith(builder.Configuration));
+builder.Services.AddSingleton<IAuthenticationWith, AuthenticationWith>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

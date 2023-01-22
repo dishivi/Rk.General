@@ -1,5 +1,5 @@
 ﻿
-namespace Core.Authentication.Models
+namespace General.Models.Auth
 {
     public class AuthenticationProperties
     {
