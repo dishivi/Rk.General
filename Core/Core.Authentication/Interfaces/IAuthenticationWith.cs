@@ -1,5 +1,5 @@
 ﻿
-using Core.Authentication.Models;
+using General.Models.Auth;
 
 namespace Core.Authentication.Interfaces
 {
@@ -10,5 +10,7 @@ namespace Core.Authentication.Interfaces
         ResponseAuthentication ValidateToken(string token);
 
         Task<ResponseAuthentication> ValidateGoogleToken(string token);
+
+        Task<ResponseAuthentication> ValidateFacebookToken(string token);
     }
 }

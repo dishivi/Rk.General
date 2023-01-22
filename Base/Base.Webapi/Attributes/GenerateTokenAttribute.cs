@@ -1,5 +1,5 @@
 ﻿using Core.Authentication.Interfaces;
-using Core.Authentication.Models;
+using General.Models.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

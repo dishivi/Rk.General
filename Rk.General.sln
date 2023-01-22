@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.ExceptionHandler", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Authentication", "Core\Core.Authentication\Core.Authentication.csproj", "{2D45BDCB-4455-4BAB-AD02-4F38C6FBA737}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.ServeHttp", "Core\Core.ServeHttp\Core.ServeHttp.csproj", "{E93813A4-9905-4AD8-A003-78ACC84C82B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{2D45BDCB-4455-4BAB-AD02-4F38C6FBA737}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D45BDCB-4455-4BAB-AD02-4F38C6FBA737}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D45BDCB-4455-4BAB-AD02-4F38C6FBA737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E93813A4-9905-4AD8-A003-78ACC84C82B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E93813A4-9905-4AD8-A003-78ACC84C82B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E93813A4-9905-4AD8-A003-78ACC84C82B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E93813A4-9905-4AD8-A003-78ACC84C82B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{C41988D3-CEE0-4760-99B0-74F1A8272794} = {B973A841-CD4B-4F68-86B7-DE8654323301}
 		{3920EFEF-9188-4DBB-AABD-A23858AAFDD3} = {5A2E894D-5A2A-4078-8B2B-2500DC0C83FE}
 		{2D45BDCB-4455-4BAB-AD02-4F38C6FBA737} = {5A2E894D-5A2A-4078-8B2B-2500DC0C83FE}
+		{E93813A4-9905-4AD8-A003-78ACC84C82B1} = {5A2E894D-5A2A-4078-8B2B-2500DC0C83FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23CD8693-B848-45DE-8FA0-DB224EB1E0F0}
