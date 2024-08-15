@@ -32,8 +32,7 @@ namespace Base.Webapi.Application.Request.Validator
         /// <param name="next">The next.</param>
         /// <returns></returns>
         /// <exception cref="ATuneCustomException"></exception>
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken,
-                                            RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var context = new ValidationContext<object>(request);
             List<ValidationFailure> failures = _validators
