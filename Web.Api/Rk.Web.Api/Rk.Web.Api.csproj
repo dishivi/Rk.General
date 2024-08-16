@@ -1,18 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Auth\General.Auth.Jwt\General.Auth.Jwt.csproj" />
-    <ProjectReference Include="..\..\Base\Base.Webapi\Base.Webapi.csproj" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\..\Auth\General.Auth.Jwt\General.Auth.Jwt.csproj" />
+		<ProjectReference Include="..\..\Base\Base.Webapi\Base.Webapi.csproj" />
+		<ProjectReference Include="..\Rk.Infrastructure\Rk.Infrastructure.csproj" />
+	</ItemGroup>
 </Project>

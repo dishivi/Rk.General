@@ -1,5 +1,6 @@
 ﻿using Base.Webapi.Interface;
 using Core.Authentication.Interfaces;
+using Core.ExceptionHandler.ExceptionHandler;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Base.Webapi.Auth
@@ -15,22 +16,23 @@ namespace Base.Webapi.Auth
 
         public void DoingAuth(ActionExecutingContext context)
         {
-            var token = context.HttpContext.Request.Headers.Authorization.ToString();
+            string? token = context.HttpContext.Request.Headers.Authorization.ToString();
 
-            if (!string.IsNullOrEmpty(token))
+            if (string.IsNullOrWhiteSpace(token) || !token.StartsWith("Bearer "))
+                throw AuthenticationExceptionHandler.RaiseUnauthorizedUserException();
+
+            token = token.Replace("Bearer ", String.Empty);
+
+            var response = _auth.ValidateToken(token);
+
+            if(response is null)
+                throw AuthenticationExceptionHandler.RaiseUnauthorizedUserException();
+
+            if (response != null)
             {
-                if (token.StartsWith("Bearer "))
+                foreach (var claim in response.Claims)
                 {
-                    token = token.Replace("Bearer ", String.Empty);
-                }
-
-                var response = _auth.ValidateToken(token);
-                if (response != null)
-                {
-                    foreach (var claim in response.Claims)
-                    {
-                        context.HttpContext.Request.Headers.Add(claim.ClaimType, claim.ClaimValue);
-                    }
+                    context.HttpContext.Request.Headers.Add(claim.ClaimType, claim.ClaimValue);
                 }
             }
         }

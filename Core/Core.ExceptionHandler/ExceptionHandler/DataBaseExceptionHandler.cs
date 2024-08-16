@@ -4,9 +4,9 @@ using System.Net;
 
 namespace Core.ExceptionHandler.ExceptionHandler
 {
-    public static class DataBase
+    public static class DataBaseExceptionHandler
     {
-        public static void RaiseEntityAlreadyExistsException(string entityName)
+        public static CustomExceptionHandler RaiseEntityAlreadyExistsException(string entityName)
         {
             string message = "{0} already exists.";
             throw new CustomExceptionHandler(message, entityName)
@@ -16,17 +16,17 @@ namespace Core.ExceptionHandler.ExceptionHandler
             };
         }
 
-        public static void RaiseNoDataFoundException()
+        public static CustomExceptionHandler RaiseNoDataFoundException(string entityName)
         {
-            string message = "No data found.";
-            throw new CustomExceptionHandler(message)
+            string message = "No data found for {0}.";
+            throw new CustomExceptionHandler(message, entityName)
             {
                 ErrorCode = DatabaseErrorCode.NoDataFound.ToDescription(),
                 HttpStatusCode = HttpStatusCode.NotFound
             };
         }
 
-        public static void RaiseInvalidDataException()
+        public static CustomExceptionHandler RaiseInvalidDataException()
         {
             string message = "Invalid data.";
             throw new CustomExceptionHandler(message)
@@ -36,7 +36,7 @@ namespace Core.ExceptionHandler.ExceptionHandler
             };
         }
 
-        public static void RaiseInvalidDataException(string entityName)
+        public static CustomExceptionHandler RaiseInvalidDataException(string entityName)
         {
             string message = "Invalid {0}.";
             throw new CustomExceptionHandler(message, entityName)
@@ -46,7 +46,7 @@ namespace Core.ExceptionHandler.ExceptionHandler
             };
         }
 
-        public static void RaiseCanNotDeleteException()
+        public static CustomExceptionHandler RaiseCanNotDeleteException()
         {
             string message = "Can not delete.";
             throw new CustomExceptionHandler(message)
@@ -56,7 +56,7 @@ namespace Core.ExceptionHandler.ExceptionHandler
             };
         }
 
-        public static void RaiseDuplicateDataException()
+        public static CustomExceptionHandler RaiseDuplicateDataException()
         {
             string message = "Duplicate data.";
             throw new CustomExceptionHandler(message)
@@ -67,7 +67,7 @@ namespace Core.ExceptionHandler.ExceptionHandler
         }
 
 
-        public static void RaiseInvalidDateException()
+        public static CustomExceptionHandler RaiseInvalidDateException()
         {
             string message = "Start date should not less than end date.";
             throw new CustomExceptionHandler(message)
@@ -77,7 +77,7 @@ namespace Core.ExceptionHandler.ExceptionHandler
             };
         }
 
-        public static void RaiseCanNotUpdateException()
+        public static CustomExceptionHandler RaiseCanNotUpdateException()
         {
             string message = "Can not update.";
             throw new CustomExceptionHandler(message)
@@ -87,7 +87,7 @@ namespace Core.ExceptionHandler.ExceptionHandler
             };
         }
 
-        public static void RaiseNoDataFoundExceptionForEntity(string entityName)
+        public static CustomExceptionHandler RaiseNoDataFoundExceptionForEntity(string entityName)
         {
             string message = "No data found for {0}.";
             throw new CustomExceptionHandler(message, entityName)
@@ -97,7 +97,7 @@ namespace Core.ExceptionHandler.ExceptionHandler
             };
         }
 
-        public static void RaiseNoContentException()
+        public static CustomExceptionHandler RaiseNoContentException()
         {
             string message = "No content.";
             throw new CustomExceptionHandler(message)

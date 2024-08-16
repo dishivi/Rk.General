@@ -3,6 +3,7 @@ using Base.Webapi.Auth;
 using Base.Webapi.Interface;
 using Core.ServeHttp.Interface;
 using Core.ServeHttp.Service;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

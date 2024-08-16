@@ -1,4 +1,5 @@
 ﻿using Core.Authentication.Interfaces;
+using Core.ExceptionHandler;
 using Core.ExceptionHandler.ExceptionHandler;
 using Core.ServeHttp.Interface;
 using General.Models.Application.Response;
@@ -49,7 +50,6 @@ namespace Core.Auth.Jwt
         public ResponseAuthentication ValidateToken(string token)
         {
             var mySecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtConfiguration.Value.Key));
-
             var tokenHandler = new JwtSecurityTokenHandler();
 
             try
@@ -63,6 +63,9 @@ namespace Core.Auth.Jwt
                     ValidAudience = _jwtConfiguration.Value.Issuer,
                     IssuerSigningKey = mySecurityKey
                 }, out SecurityToken validatedToken);
+
+                if (response is null)
+                    throw AuthenticationExceptionHandler.RaiseUnauthorizedUserException();
 
                 string[] systemClaims = new string[]
                 {
@@ -78,14 +81,9 @@ namespace Core.Auth.Jwt
                     }).ToList()
                 };
             }
-            catch (SecurityTokenExpiredException ex)
-            {
-                throw AuthenticationExceptionHandler.RaiseTokenExpiredException();
-            }
-            catch (Exception ex)
-            {
-                throw AuthenticationExceptionHandler.RaiseInvalidAPIKeyException();
-            }
+            catch (SecurityTokenExpiredException ex) { throw AuthenticationExceptionHandler.RaiseTokenExpiredException(); }
+            catch (CustomExceptionHandler ex) { throw; }
+            catch (Exception ex) { throw AuthenticationExceptionHandler.RaiseInvalidAPIKeyException(); }
         }
 
         public async Task<ResponseAuthentication> ValidateGoogleToken(string token)
