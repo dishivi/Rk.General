@@ -10,5 +10,7 @@ namespace Core.ExceptionHandler.Common
         public const string InvalidAPIKey = "Invalid API Key.";
 
         public const string TokenExpired = "Token expired.";
+
+        public const string CredentialsIncorrect = "Username or password incorrect.";
     }
 }

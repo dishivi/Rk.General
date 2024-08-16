@@ -16,5 +16,11 @@ namespace Core.Models.Application.Request
         /// </summary>
         [JsonIgnore]
         public string Identity_Name { get; set; }
+
+        /// <summary>
+        /// Tenant Id
+        /// </summary>
+        [JsonIgnore]
+        public Guid Tenant_Id { get; set; }
     }
 }

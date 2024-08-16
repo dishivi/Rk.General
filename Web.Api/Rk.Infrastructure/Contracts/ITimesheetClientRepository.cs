@@ -5,7 +5,7 @@ namespace Rk.Infrastructure.Contracts
 {
     public interface ITimesheetClientRepository
     {
-        Task<int> ActiveInActiveAsync(Guid id, Guid tenantId, bool flag);
+        Task<int> UpdateStatusAsync(Guid id, Guid tenantId, bool flag);
         Task<int> AddAsync(TimesheetClient request);
         Task<int> DeleteAsync(Guid id, Guid tenantId);
         Task<TimesheetClient?> FindAsync(Guid id, Guid tenantId);

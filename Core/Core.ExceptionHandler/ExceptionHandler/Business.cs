@@ -146,13 +146,28 @@ namespace Core.ExceptionHandler.ExceptionHandler
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <exception cref="CustomExceptionHandler"></exception>
-        public static void RaiseNoDataFoundException(string entity)
+        public static CustomExceptionHandler RaiseNoDataFoundException(string entity)
         {
             string message = "{0} not found.";
-            throw new CustomExceptionHandler(message, entity)
+            return new CustomExceptionHandler(message, entity)
             {
                 ErrorCode = DatabaseErrorCode.NoDataFound.ToDescription(),
                 HttpStatusCode = HttpStatusCode.NotFound
+            };
+        }
+
+        /// <summary>
+        /// Raises the no data found exception.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <exception cref="CustomExceptionHandler"></exception>
+        public static void RaiseAlreadyExistsException(string entity)
+        {
+            string message = "{0} already exists.";
+            throw new CustomExceptionHandler(message, entity)
+            {
+                ErrorCode = DatabaseErrorCode.EntityAlreadyExists.ToDescription(),
+                HttpStatusCode = HttpStatusCode.Conflict
             };
         }
 
@@ -176,9 +191,9 @@ namespace Core.ExceptionHandler.ExceptionHandler
         /// <param name="FType">Type of the f.</param>
         /// <param name="MaxLen">The maximum length.</param>
         /// <exception cref="CustomExceptionHandler"></exception>
-        public static void RaiseInvalidLengthException(string FType,int MaxLen)
+        public static void RaiseInvalidLengthException(string FType, int MaxLen)
         {
-            string Lmessage = "The field " + FType +" must be a string with a maximum length of " + MaxLen;
+            string Lmessage = "The field " + FType + " must be a string with a maximum length of " + MaxLen;
             throw new CustomExceptionHandler(Lmessage)
             {
                 ErrorCode = BusinessErrorCode.InvalidLength.ToDescription(),

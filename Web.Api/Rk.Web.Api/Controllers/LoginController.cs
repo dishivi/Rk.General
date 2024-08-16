@@ -1,7 +1,12 @@
 ﻿using Base.Webapi.Attributes;
 using Core.Authentication.Interfaces;
+using Core.ExceptionHandler.ExceptionHandler;
 using General.Models.Auth;
 using Microsoft.AspNetCore.Mvc;
+using Rk.General.Utility.Common;
+using Rk.Infrastructure.Contracts;
+using Rk.Infrastructure.Repositories;
+using Rk.Web.Api.Application.Request;
 using Rk.Web.Api.Models;
 
 namespace Rk.Web.Api.Controllers
@@ -9,43 +14,53 @@ namespace Rk.Web.Api.Controllers
     [Route("api/[controller]")]
     public class LoginController : Controller
     {
+        private readonly ITimesheetUserRepository _timesheetUserRepository;
         public IAuthenticationWith Auth { get; }
 
-        public LoginController(IAuthenticationWith auth)
+        public LoginController(IAuthenticationWith auth, ITimesheetUserRepository timesheetUserRepository)
         {
             Auth = auth;
+            _timesheetUserRepository = timesheetUserRepository;
         }
 
         [HttpGet(nameof(Login))]
-        [GenerateToken]
-        public IActionResult Login()
+        //[GenerateToken]
+        public async Task<IActionResult> Login([FromBody] RequestLogin request)
         {
             BaseRequest identity = new();
 
+            var detail = await _timesheetUserRepository.ValidateUserAuthAsync(request.Username, request.Password, request.TenantId.ToGuid() ?? Guid.Empty);
+            if (detail is null) throw AuthenticationExceptionHandler.RaiseIncorrectUserNameOrPasswordException();
+
             //Authenticate user here
 
-            return new OkObjectResult(
-                new RequestAuthentication
-                {
-                    ExpiryDate = DateTime.Now.AddSeconds(10),
-                    Claims = new List<AuthenticationClaim>
+            var claims = new RequestAuthentication
+            {
+                ExpiryDate = DateTime.Now.AddSeconds(10),
+                Claims = new List<AuthenticationClaim>
                     {
                         new AuthenticationClaim
                         {
                             ClaimType = nameof(identity.Identity_Id),
-                            ClaimValue = Guid.NewGuid().ToString(),
+                            ClaimValue = detail.Id.ToString(),
                         },
                         new AuthenticationClaim
                         {
                             ClaimType =  nameof(identity.Identity_Name),
-                            ClaimValue = "rk"
+                            ClaimValue = detail.Name
                         },new AuthenticationClaim
                         {
-                            ClaimType = nameof(identity.CompanyId),
-                            ClaimValue = Guid.NewGuid().ToString(),
+                            ClaimType = nameof(identity.Tenant_Id),
+                            ClaimValue = detail.TenantId.ToString(),
                         },
                     }
-                });
+            };
+
+            string token = Auth.GenerateToken(claims);
+
+            Response.Headers.Append("jwt-token", token);
+
+            return new OkResult();
         }
 
         [HttpPost(nameof(LoginByGoogle))]

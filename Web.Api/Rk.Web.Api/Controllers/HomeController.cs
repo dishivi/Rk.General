@@ -14,13 +14,13 @@ namespace Rk.Web.Api.Controllers
         {
         }
 
-        [HttpPost(Name = "Validate")]
-        public bool ValidateToken([FromBody] RequestAddEmployee request)
-        {
-            SetIdentity(ref request);
+        //[HttpPost(Name = "Validate")]
+        //public bool ValidateToken([FromBody] RequestAddEmployee request)
+        //{
+        //    SetIdentity(ref request);
 
 
-            return true;
-        }
+        //    return true;
+        //}
     }
 }

@@ -25,9 +25,9 @@ namespace Rk.Domain.DbEntities
 
         public string? Note { get; set; }
 
-        public double? LaborRate { get; set; }
+        public double? LaborRatePerHour { get; set; }
 
-        public double? BillableRate { get; set; }
+        public double? BillableRatePerHour { get; set; }
     }
 }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Rk.Infrastructure;
+using Rk.Infrastructure.Contracts;
+using Rk.Infrastructure.Repositories;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +35,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IProjectAssignedUserRepository, ProjectAssignedUserRepository>();
+builder.Services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
+builder.Services.AddScoped<ITaskTimeLogRepository, TaskTimeLogRepository>();
+builder.Services.AddScoped<ITimesheetClientRepository, TimesheetClientRepository>();
+builder.Services.AddScoped<ITimesheetProjectRepository, TimesheetProjectRepository>();
+builder.Services.AddScoped<ITimesheetUserRepository, TimesheetUserRepository>();
 
 var app = builder.Build();
 

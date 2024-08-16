@@ -1,7 +1,7 @@
 ﻿
 namespace Rk.General.Utility.Common
 {
-    public class CastConversion
+    public static class CastConversion
     {
         public static object ConvertTo(Type type, string value)
         {
@@ -22,6 +22,13 @@ namespace Rk.General.Utility.Common
                 default:
                     throw new ArgumentException(nameof(type));
             }
+        }
+
+        public static Guid? ToGuid(this string value)
+        {
+            if (!Guid.TryParse(value, out Guid result)) return null;
+
+            return result;
         }
     }
 }

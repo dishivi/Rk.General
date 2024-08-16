@@ -60,7 +60,7 @@ namespace Rk.Infrastructure.Repositories
             return await Task.FromResult(_context.SaveChanges());
         }
 
-        public async Task<int> ActiveInActiveAsync(Guid id, Guid tenantId, bool flag)
+        public async Task<int> UpdateStatusAsync(Guid id, Guid tenantId, bool flag)
         {
             var detail = _context.Clients.SingleOrDefault(x => x.Id == id && x.TenantId == tenantId);
             if (detail is null) throw DataBaseExceptionHandler.RaiseNoDataFoundExceptionForEntity(nameof(TimesheetClient));

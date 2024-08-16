@@ -36,6 +36,13 @@ namespace Rk.Infrastructure.Repositories
             return await Task.FromResult(data);
         }
 
+        public async Task<TimesheetUser?> ValidateUserAuthAsync(string username, string password, Guid tenantId)
+        {
+            var data = _context.Users.SingleOrDefault(x => x.Email == username && x.Password == password && x.TenantId == tenantId && x.IsActive && !x.IsDeleted);
+
+            return await Task.FromResult(data);
+        }
+
         public async Task<int> AddAsync(TimesheetUser request)
         {
             _context.Users.Add(request);
@@ -60,7 +67,7 @@ namespace Rk.Infrastructure.Repositories
             return await Task.FromResult(_context.SaveChanges());
         }
 
-        public async Task<int> ActiveInActiveAsync(Guid id, Guid tenantId, bool flag)
+        public async Task<int> UpdateStatusAsync(Guid id, Guid tenantId, bool flag)   
         {
             var detail = _context.Users.SingleOrDefault(x => x.Id == id && x.TenantId == tenantId);
             if (detail is null) throw DataBaseExceptionHandler.RaiseNoDataFoundExceptionForEntity(nameof(TimesheetClient));

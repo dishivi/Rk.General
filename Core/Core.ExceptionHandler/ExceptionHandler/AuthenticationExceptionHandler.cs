@@ -42,5 +42,14 @@ namespace Core.ExceptionHandler.ExceptionHandler
                 HttpStatusCode = HttpStatusCode.Unauthorized
             };
         }
+
+        public static CustomExceptionHandler RaiseIncorrectUserNameOrPasswordException()
+        {
+            return new CustomExceptionHandler(ErrorMessages.CredentialsIncorrect)
+            {
+                ErrorCode = AuthenticationErrorCode.UnauthorizedUser.ToDescription(),
+                HttpStatusCode = HttpStatusCode.Unauthorized
+            };
+        }
     }
 }
